@@ -1,0 +1,53 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  password  String
+  username  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  listings  Listing[]
+  purchases Purchase[]
+  cart      Cart[]
+}
+
+model Listing {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String
+  category    String
+  price       Float
+  image       String    @default("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200'><rect width='100%' height='100%' fill='%23e5e7eb'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%236b7280' font-size='18'>EcoFinds</text></svg>")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  purchases   Purchase[]
+  carts       Cart[]
+}
+
+model Purchase {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  listingId Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  listing   Listing  @relation(fields: [listingId], references: [id])
+}
+
+model Cart {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  listingId Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  listing   Listing  @relation(fields: [listingId], references: [id])
+}
