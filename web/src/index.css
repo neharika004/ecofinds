@@ -2,11 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { --brand: #16a34a; }
+:root {
+  --brand: #16a34a;
+  --muted: #6b7280;
+  --bg: #f8fafc;
+  --text: #111827;
+}
 
-body { @apply bg-gray-50 text-gray-800; }
-.header { @apply bg-white shadow-sm py-3 px-4 flex items-center justify-between; }
-.card { @apply bg-white rounded-2xl p-4 shadow; }
-.btn { @apply px-4 py-2 rounded-lg font-medium; }
-.btn-primary { @apply bg-[color:var(--brand)] text-white; }
-.input { @apply border rounded-lg px-3 py-2 w-full; }
+html {
+  font-size: 18px; /* increased base size */
+}
+
+body {
+  @apply bg-gray-50 text-gray-800 antialiased leading-relaxed;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 1rem; /* base now ~18px */
+  color: var(--text);
+}
+
+/* Headings */
+h1, .h1 { @apply text-3xl font-bold text-gray-900; }     /* ~30px */
+h2, .h2 { @apply text-2xl font-semibold text-gray-900; } /* ~24px */
+h3, .h3 { @apply text-xl font-semibold text-gray-800; }  /* ~20px */
+.h4 { @apply text-lg font-semibold; }                   /* ~18px */
+
+/* Smaller text */
+.kicker { @apply text-sm text-gray-500; }
+
+/* Buttons */
+.btn { @apply px-4 py-2 rounded-lg font-medium inline-flex items-center justify-center text-base; }
+.btn-primary { background: var(--brand); color: white; @apply hover:bg-green-600; }
+.btn-outline { @apply border border-gray-200 text-gray-700 bg-white hover:bg-gray-50; }
+
+/* Inputs */
+.input {
+  @apply border rounded-lg px-4 py-3 w-full text-base bg-white;
+  border-color: #d1d5db;
+}
+
+/* Cards */
+.card {
+  @apply bg-white rounded-2xl p-6 shadow-sm border border-gray-100;
+  transition: transform .14s ease, box-shadow .14s ease;
+}
+.card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(2,6,23,0.08); }

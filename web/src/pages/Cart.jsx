@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getCart, removeFromCart, checkout } from '../api/cart';
 import { useNavigate } from 'react-router-dom';
+import Card from '../components/Card';
+import toast from 'react-hot-toast';
 
 export default function CartPage(){
   const [items, setItems] = useState([]);
@@ -9,25 +11,25 @@ export default function CartPage(){
   async function load(){ const data = await getCart(); setItems(data); }
   useEffect(()=>{ load(); }, []);
 
-  async function handleRemove(listingId) { await removeFromCart(listingId); load(); }
-  async function handleCheckout(){ await checkout(); alert('Checked out'); nav('/purchases'); }
+  async function handleRemove(listingId) { await removeFromCart(listingId); load(); toast.success('Removed'); }
+  async function handleCheckout(){ await checkout(); toast.success('Checked out'); nav('/purchases'); }
 
-  if (!items.length) return <div className="card">Cart is empty</div>;
+  if (!items.length) return <Card>Your cart is empty</Card>;
 
   return (
     <div>
-      <h2 className="text-xl mb-4">Cart</h2>
+      <h2 className="page-title">Cart</h2>
       <div className="space-y-3">
         {items.map(i=>(
-          <div key={i.id} className="card flex justify-between items-center">
+          <Card key={i.id} className="flex justify-between items-center">
             <div>
               <div className="font-semibold">{i.listing.title}</div>
-              <div className="text-sm text-gray-500">₹{i.listing.price}</div>
+              <div className="kicker">₹{i.listing.price}</div>
             </div>
             <div className="flex gap-2">
-              <button onClick={()=>handleRemove(i.listingId)} className="btn text-red-500">Remove</button>
+              <button onClick={()=>handleRemove(i.listingId)} className="btn btn-outline">Remove</button>
             </div>
-          </div>
+          </Card>
         ))}
       </div>
       <div className="mt-4">

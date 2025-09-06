@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { getPurchases } from '../api/cart';
+import Card from '../components/Card';
 
 export default function Purchases(){
   const [items,setItems] = useState([]);
   useEffect(()=>{ getPurchases().then(setItems); },[]);
   return (
     <div>
-      <h2 className="text-xl mb-4">Previous Purchases</h2>
+      <h2 className="page-title">Previous Purchases</h2>
       <div className="space-y-3">
-        {items.length === 0 && <div className="card">No purchases yet</div>}
+        {items.length === 0 && <Card>No purchases yet</Card>}
         {items.map(p => (
-          <div key={p.id} className="card flex justify-between items-center">
+          <Card key={p.id} className="flex justify-between items-center">
             <div>
               <div className="font-semibold">{p.listing.title}</div>
-              <div className="text-sm text-gray-500">₹{p.listing.price}</div>
+              <div className="kicker">₹{p.listing.price}</div>
             </div>
-            <div className="text-sm text-gray-500">{new Date(p.createdAt).toLocaleString()}</div>
-          </div>
+            <div className="kicker">{new Date(p.createdAt).toLocaleString()}</div>
+          </Card>
         ))}
       </div>
     </div>

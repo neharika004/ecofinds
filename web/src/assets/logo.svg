@@ -1,0 +1,10 @@
+<!-- web/src/assets/logo.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="36" viewBox="0 0 160 36" fill="none">
+  <rect width="160" height="36" rx="8" fill="#ffffff" />
+  <g transform="translate(6,4)">
+    <circle cx="14" cy="14" r="14" fill="#16a34a"/>
+    <path d="M8 14c2-4 8-6 10-6s4 2 4 4-2 4-4 6-8 2-10 0 0-4 0-4z" fill="#fff"/>
+  </g>
+  <text x="48" y="22" font-family="Inter, Arial, sans-serif" font-size="16" fill="#0f172a" font-weight="700">EcoFinds</text>
+  <text x="48" y="30" font-family="Inter, Arial, sans-serif" font-size="10" fill="#475569">Second-hand Marketplace</text>
+</svg>
